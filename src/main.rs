@@ -11,6 +11,7 @@ use std::{
 use anyhow::{anyhow, Result};
 use clap::Parser;
 use console::style;
+use tracing::info;
 use sugar_cli::{
     airdrop::{process_airdrop, AirdropArgs},
     bundlr::{process_bundlr, BundlrArgs},
@@ -97,6 +98,8 @@ async fn main() {
 async fn run() -> Result<()> {
     solana_logger::setup_with_default("solana=off");
 
+    println!("alpha's version 1");
+
     let cli = Cli::parse();
 
     let log_level_error: Result<()> = Err(anyhow!(
@@ -134,6 +137,7 @@ async fn run() -> Result<()> {
         ctrl_handler.store(true, Ordering::SeqCst);
     })
     .expect("Error setting Ctrl-C handler");
+
 
     match cli.command {
         Commands::Bundlr {
