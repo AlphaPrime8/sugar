@@ -485,10 +485,13 @@ pub async fn mint(
         .rpc()
         .get_account_with_commitment(&metadata_pda, CommitmentConfig::processed())
     {
+        info!("Getting cluster");
         let cluster_param = match get_cluster(program.rpc()).unwrap_or(Cluster::Mainnet) {
             Cluster::Devnet => "?devnet",
+            Cluster::Testnet => "?testnet",
             _ => "",
         };
+        info!("Got cluster: {:?}", cluster_param);
         return Err(anyhow!(
             "Minting most likely failed with a bot tax. Check the transaction link for more details: https://explorer.solana.com/tx/{}{}",
             sig.to_string(),

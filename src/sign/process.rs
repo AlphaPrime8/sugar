@@ -110,7 +110,7 @@ pub async fn process_sign(args: SignArgs) -> Result<()> {
         };
 
         let account_keys = match solana_cluster {
-            Cluster::Devnet | Cluster::Localnet | Cluster::Mainnet => {
+            Cluster::Devnet | Cluster::Localnet | Cluster::Mainnet | Cluster::Testnet => {
                 let client = RpcClient::new_with_timeout(&rpc_url, Duration::from_secs(300));
                 let (creator, _) = find_candy_machine_creator_pda(&candy_machine_id);
                 let creator = bs58::encode(creator).into_string();

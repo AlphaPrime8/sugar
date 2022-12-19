@@ -34,17 +34,24 @@ pub const DEVNET_HASH: &str = "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG";
 /// Hash for mainnet-beta cluster
 pub const MAINNET_HASH: &str = "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d";
 
+/// TODO Hash for testnet cluster
+pub const TESTNET_HASH: &str = "4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY";
+
 /// Return the environment of the current connected RPC.
 pub fn get_cluster(rpc_client: RpcClient) -> Result<Cluster> {
     let devnet_hash = Hash::from_str(DEVNET_HASH).unwrap();
     let mainnet_hash = Hash::from_str(MAINNET_HASH).unwrap();
+    let testnet_hash = Hash::from_str(TESTNET_HASH).unwrap();
     let genesis_hash = rpc_client.get_genesis_hash()?;
 
     Ok(if genesis_hash == devnet_hash {
         Cluster::Devnet
     } else if genesis_hash == mainnet_hash {
         Cluster::Mainnet
-    } else {
+    } else if genesis_hash == testnet_hash {
+        Cluster::Testnet
+    }
+    else {
         Cluster::Unknown
     })
 }

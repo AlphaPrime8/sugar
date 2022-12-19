@@ -50,7 +50,7 @@ impl BundlrMethod {
         let bundlr_node = match solana_cluster {
             Cluster::Devnet => BUNDLR_DEVNET,
             Cluster::Mainnet => BUNDLR_MAINNET,
-            Cluster::Unknown | Cluster::Localnet => {
+            _ => {
                 return Err(anyhow!("Bundlr is only supported on devnet or mainnet"));
             }
         };
